@@ -26,7 +26,7 @@ bot = telebot.TeleBot(config.TOKEN)
 #     schedule.run_pending()
 #     time.sleep(1)
 
-
+#d .
 @bot.message_handler(commands=['start'])
 def welcome(message):
     sti = open('static/welcome.webp', 'rb')
