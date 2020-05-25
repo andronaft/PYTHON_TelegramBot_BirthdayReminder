@@ -55,9 +55,15 @@ def welcome(message):
                          message.from_user, bot.get_me()),
                      parse_mode='html', reply_markup=markup)
 
+@bot.message_handler(content_types=['contact'])
+def contact(message):
+
+    bot.send_message(message.chat.id, message.contact)
+    bot.send_contact(message.chat.id,message.contact.phone_number,message.contact.first_name,message.contact.last_name,message.contact.user_id)
 
 @bot.message_handler(content_types=['text'])
 def lalala(message):
+    bot.send_message(message.chat.id, message)
     if message.chat.type == 'private':
         if message.text == '🎲 Рандомное число':
             bot.send_message(message.chat.id, str(random.randint(0, 100)))
