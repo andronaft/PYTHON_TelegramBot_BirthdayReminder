@@ -1,11 +1,14 @@
 # coding=utf-8
 import telebot
 import config
+import connection
 import random
 import schedule
 import time
 
 from telebot import types
+
+
 
 bot = telebot.TeleBot(config.TOKEN)
 
@@ -27,8 +30,16 @@ bot = telebot.TeleBot(config.TOKEN)
 #     time.sleep(1)
 
 #d add
+
 @bot.message_handler(commands=['start'])
 def welcome(message):
+    cur = connection.connection().cursor()
+    cur.execute("SELECT * FROM remember")
+
+    rows = cur.fetchall()
+
+    for row in rows:
+        print("{0} {1} {2} {3}".format(row[0], row[1], row[2], row[3]))
     sti = open('static/welcome.webp', 'rb')
     bot.send_sticker(message.chat.id, sti)
     print (message.chat.id)
