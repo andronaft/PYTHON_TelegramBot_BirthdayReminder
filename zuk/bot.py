@@ -3,6 +3,7 @@ import telebot
 import config
 import connection
 import random
+import pymysql
 import schedule
 import time
 
@@ -34,6 +35,8 @@ bot = telebot.TeleBot(config.TOKEN)
 @bot.message_handler(commands=['start'])
 def welcome(message):
     cur = connection.connection().cursor()
+    data = {'chat_id': cgi.escape(123, True),'mobile': cgi.escape(123, True),'date': cgi.escape('29.01.2019', True),'description': cgi.escape('des', True)}
+    cur.execute("""INSERT INTO `rememberbot.remember` (`chat_id`,`mobile`,`date`,`description`) VALUES ({name},{mobile},{date},{decription})""", data)
     cur.execute("SELECT * FROM remember")
 
     rows = cur.fetchall()
